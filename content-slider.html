@@ -1,0 +1,50 @@
+<link rel="import" href="../polymer/polymer.html">
+<script src="slideshow.js"></script>
+
+<!--
+`content-slider`
+Content Slider based on Olmo Kramer&#39;s slideshow.js library (https://github.com/olmokramer/slideshow.js)
+
+@demo demo/index.html 
+-->
+
+<dom-module id="content-slider">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+
+      #container {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+      }
+
+      #container ::slotted(*) {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+    </style>
+
+    <section id="container"><slot></slot></section>
+
+  </template>
+
+  <script>
+    Polymer({
+
+      is: 'content-slider',
+
+      ready: function() {
+        new Slideshow(this.$$('section'));
+      }
+
+    });
+  </script>
+</dom-module>
