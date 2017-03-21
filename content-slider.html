@@ -59,6 +59,12 @@ Content Slider based on Olmo Kramer's slideshow.js
           notify: true
         },
 
+        contentHeight: {
+          type: Number,
+          readOnly: true,
+          notify: true
+        },
+
         /**
          * The duration of the animation.
          */
@@ -81,11 +87,12 @@ Content Slider based on Olmo Kramer's slideshow.js
         var self = this;
         this._slideshow = new Slideshow(this.$$('section'), {
           animationDuration: this.animationDuration,
-          onDidChange: function(evt, data) {
+          onDidChange: function(evt) {
             var child = this.getCurrentSlide();
             var parent = child.parentNode;
             var index = Array.prototype.indexOf.call(parent.children, child);
             self.currentIndex = index;
+            self._setContentHeight(child.scrollHeight);
           }
         });
       },
