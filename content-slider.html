@@ -99,11 +99,13 @@ Content Slider based on Olmo Kramer's slideshow.js
       },
 
       updateContentHeight: function() {
+        if(!this._slideshow) return;
         var currentSlide = this._slideshow.getCurrentSlide();
         this._setContentHeight(currentSlide.scrollHeight);
       },
 
       _update: function(_slideshow, currentIndex) {
+        if(!this._slideshow) return;
         this._slideshow.goTo(currentIndex)
         this._setNumberOfSlides(this._slideshow.slides.length);
       }
