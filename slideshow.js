@@ -119,8 +119,7 @@
       swipeThreshold: 0,
       animationDuration: 400,
       animationDirection: 'x',
-      effect: 'default',
-      activeClass: 'content-slider--active'
+      effect: 'default'
     };
 
     effects = {
@@ -157,7 +156,6 @@
           ],
           before: function(slideState, slideElement) {
             var X;
-            //slideElement.classList.add(this.options.activeClass);
 
             /*
             slideState  is either -1, 0 or 1
@@ -230,7 +228,6 @@
       results = [];
       for (i = j = 0, len = ref4.length; j < len; i = ++j) {
         slide = ref4[i];
-        //slide.classList.add(this.options.activeClass);
         if (i !== this.current) {
           if (i === this.current) {
             effectBefore.call(this, 0, this.slides[this.current]);

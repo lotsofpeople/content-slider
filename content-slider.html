@@ -3,7 +3,8 @@
 
 <!--
 `content-slider`
-Content Slider based on Olmo Kramer&#39;s slideshow.js library (https://github.com/olmokramer/slideshow.js)
+Content Slider based on Olmo Kramer's slideshow.js
+(https://github.com/olmokramer/slideshow.js)
 
 @demo demo/index.html 
 -->
@@ -41,8 +42,48 @@ Content Slider based on Olmo Kramer&#39;s slideshow.js library (https://github.c
 
       is: 'content-slider',
 
-      ready: function() {
-        new Slideshow(this.$$('section'));
+      properties: {
+
+        currentIndex: {
+          type: Number,
+          value: 0,
+          notify: true,
+        },
+
+        /**
+         * The duration of the animation.
+         */
+        animationDuration: {
+          type: Number,
+          value: 400
+        },
+
+        _slideshow: {
+          type: Object
+        }
+
+      },
+
+      observers: [
+        '_currentIndexChanged(currentIndex, _slideshow)'
+      ],
+
+      attached: function() {
+
+        var self = this;
+        this._slideshow = new Slideshow(this.$$('section'), {
+          animationDuration: this.animationDuration,
+          onDidChange: function(evt, data) {
+            var child = this.getCurrentSlide();
+            var parent = child.parentNode;
+            var index = Array.prototype.indexOf.call(parent.children, child);
+            self.currentIndex = index;
+          }
+        });
+      },
+
+      _currentIndexChanged: function(currentIndex) {
+        this._slideshow.goTo(currentIndex)
       }
 
     });
