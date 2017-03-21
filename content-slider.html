@@ -50,7 +50,13 @@ Content Slider based on Olmo Kramer's slideshow.js
         currentIndex: {
           type: Number,
           value: 0,
-          notify: true,
+          notify: true
+        },
+
+        numberOfSlides: {
+          type: Number,
+          readOnly: true,
+          notify: true
         },
 
         /**
@@ -68,11 +74,10 @@ Content Slider based on Olmo Kramer's slideshow.js
       },
 
       observers: [
-        '_currentIndexChanged(currentIndex, _slideshow)'
+        '_update(_slideshow, currentIndex)'
       ],
 
       attached: function() {
-
         var self = this;
         this._slideshow = new Slideshow(this.$$('section'), {
           animationDuration: this.animationDuration,
@@ -85,8 +90,9 @@ Content Slider based on Olmo Kramer's slideshow.js
         });
       },
 
-      _currentIndexChanged: function(currentIndex) {
+      _update: function(_slideshow, currentIndex) {
         this._slideshow.goTo(currentIndex)
+        this._setNumberOfSlides(this._slideshow.slides.length);
       }
 
     });
